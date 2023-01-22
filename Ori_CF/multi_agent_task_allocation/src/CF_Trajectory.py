@@ -228,6 +228,14 @@ class Segment:
         s += '],  # noqa'
         print(s)
 
+    def get_coef(self):
+        coef = []
+        coef.append(self._scale)
+        for axis in range(4):
+            for d in range(8):
+                coef.append(self._polys[axis][d]) 
+        return coef
+
     def print_poly_c(self):
         s = ''
 

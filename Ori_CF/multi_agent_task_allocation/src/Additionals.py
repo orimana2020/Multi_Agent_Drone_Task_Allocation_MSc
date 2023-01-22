@@ -99,7 +99,7 @@ class Drone_Manager(object):
         self.drones[j].goal_coords = self.drones[j].base
         self.drones[j].path_found = path_planner.plan(self.drones ,drone_idx=j, drone_num=ta.drone_num, override=override)
         if self.drones[j].path_found:
-            fc.execute_trajectory_mt(drone_idx=j, waypoints=path_planner.smooth_path_m[j])        
+            fc.execute_trajectory(drone_idx=j, waypoints=path_planner.smooth_path_m[j])        
     
     def is_all_at_base(self, drone_num):
         all_at_base = True
@@ -155,25 +155,25 @@ class Analysis(object):
 
     def start(self,dm):
         self.dm = dm
-        self.start_time = 0 #time.time()
+        self.start_time = time.time()
         for j in range(len(self.dm.drones)):
             self.dm.drones[j].timer = self.start_time
 
     def time_to_base(self, idx):
-        self.dm.drones[idx].time_to_base += 0 #time.time() - self.dm.drones[idx].timer
-        self.dm.drones[idx].timer = 0 #time.time()
+        self.dm.drones[idx].time_to_base += time.time() - self.dm.drones[idx].timer
+        self.dm.drones[idx].timer = time.time()
 
     def time_at_base(self, idx):
-        self.dm.drones[idx].time_at_base += 0 #time.time() - self.dm.drones[idx].timer
-        self.dm.drones[idx].timer = 0 #time.time()
+        self.dm.drones[idx].time_at_base += time.time() - self.dm.drones[idx].timer
+        self.dm.drones[idx].timer = time.time()
 
     def time_to_target(self, idx):
-        self.dm.drones[idx].time_to_target += 0 #time.time() - self.dm.drones[idx].timer
-        self.dm.drones[idx].timer = 0 #time.time()
+        self.dm.drones[idx].time_to_target += time.time() - self.dm.drones[idx].timer
+        self.dm.drones[idx].timer = time.time()
 
     def time_at_target(self, idx):
-        self.dm.drones[idx].time_at_target += 0 #time.time() - self.dm.drones[idx].timer
-        self.dm.drones[idx].timer = 0 #time.time()
+        self.dm.drones[idx].time_at_target += time.time() - self.dm.drones[idx].timer
+        self.dm.drones[idx].timer = time.time()
     
     def add_visited(self, idx, target_idx ):
         self.dm.drones[idx].visited_targets_idx.append(target_idx)
@@ -206,7 +206,7 @@ class Analysis(object):
     def analyse(self):
         general_data = {}
         general_data['initial_drone_num'] = (len(self.dm.drones))
-        general_data['total_task_time'] = 0 #time.time() - self.start_time
+        general_data['total_task_time'] = time.time() - self.start_time
         general_data['targets_position'] = params.targetpos
         general_data['lps_position'] = params.LPS_anchor_pos
         general_data['mode'] = params.mode

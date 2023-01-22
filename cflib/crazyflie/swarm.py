@@ -112,7 +112,7 @@ class Swarm:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close_links()
 
-    def __get_estimated_position(self, scf):
+    def _get_estimated_position(self, scf):
         log_config = LogConfig(name='stateEstimate', period_in_ms=10)
         log_config.add_variable('stateEstimate.x', 'float')
         log_config.add_variable('stateEstimate.y', 'float')
@@ -131,7 +131,7 @@ class Swarm:
         Return a `dict`, keyed by URI and with the SwarmPosition namedtuples as
         value, with the estimated (x, y, z) of each Crazyflie in the swarm.
         """
-        self.parallel_safe(self.__get_estimated_position)
+        self.parallel_safe(self._get_estimated_position)
         return self._positions
 
     def __wait_for_position_estimator(self, scf):

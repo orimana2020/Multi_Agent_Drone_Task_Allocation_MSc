@@ -26,7 +26,7 @@ uri1 = 'radio://0/80/2M/E7E7E7E7E1'
 uri2 = 'radio://0/80/2M/E7E7E7E7E2'
 uri3 = 'radio://0/80/2M/E7E7E7E7E3'
 uri4 = 'radio://0/80/2M/E7E7E7E7E4'
-uri_list = [uri1,uri3,uri4] # index 0- most right drone 
+uri_list = [uri3, uri4] # index 0- most right drone 
 
 # --------------------- Drones --------------------#
 # -----------Drone CF
@@ -53,7 +53,7 @@ if mode == 'sim':
 k_init = 5
 threshold_factor = 0.8
 uri_state_mat_sim = '/src/rotors_simulator/multi_agent_task_allocation/src'
-uri_targetpos_cf = '/cflib/Ori_CF/multi_agent_task_allocation/src'
+uri_targetpos_cf = '/Ori_CF/multi_agent_task_allocation/src'
 if mode == 'sim':
     uri_state_mat = uri_state_mat_sim
 elif mode == 'cf':
@@ -78,15 +78,15 @@ if mode == 'sim':
     dist_to_target = 0.05
     dist_to_base = 0.1
 elif mode == 'cf':
-    dist_to_target = 0.05
+    dist_to_target = 0.1
     dist_to_base = 0.1
 
 # -------------------- Targets
 uri_targetpos_sim = '/src/rotors_simulator/multi_agent_task_allocation/datasets/experiment1/experiment1_targets.npy'
 
-data_source = 'cf_exp'
+data_source = 'circle'
 if data_source == 'circle':
-    targets_num_gen = 50; t = np.linspace(0, 2*np.pi-2*np.pi/targets_num_gen, targets_num_gen); radius=0.6; depth=2.5;z_offset = radius + floor_safety_distance + 0.1;
+    targets_num_gen = 5; t = np.linspace(0, 2*np.pi-2*np.pi/targets_num_gen, targets_num_gen); radius=0.6; depth=2.1;z_offset = radius + floor_safety_distance + 0.1;
     targetpos_raw = np.stack([depth*np.ones([targets_num_gen]) , radius * np.cos(t), radius * np.sin(t) + z_offset] , axis=-1)
 
 elif data_source == 'dataset':
@@ -107,7 +107,7 @@ span, limits, limits_idx = get_span(targetpos, base, resolution)
 downwash_distance = np.array([[min(targetpos[:,0]), max(targetpos[:,0])], [0.25,0.25], [1.2,1.2]]) # [m] , also distance to avoid flowdeck disturbance
 
 # --------------------- General
-sleep_time = 0.2
+sleep_time = 0.05
 colors = ['r', 'g', 'b', 'peru', 'yellow', 'lime', 'navy', 'purple', 'pink','grey']
 
 # ----------------- Plotting

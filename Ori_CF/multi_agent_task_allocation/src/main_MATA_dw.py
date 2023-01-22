@@ -72,7 +72,7 @@ def main():
                 fc.sleep()
 
             while not (dm.drones[drone_idx].at_base):
-                if not (dm.drones[drone_idx].path_found) and (not (fc.open_threads[drone_idx].is_alive())):
+                if not (dm.drones[drone_idx].path_found) : #and (not (fc.open_threads[drone_idx].is_alive())):
                     dm.return_base(drone_idx, path_planner, fc, ta, override=True)
                 elif (dm.drones[drone_idx].is_reached_goal):
                     dm.drones[drone_idx].at_base = 1
@@ -122,7 +122,7 @@ def main():
                             an.add_visited(j, ta.optim.current_targets[j])
                             
                         # find path to base 
-                        elif (not (dm.drones[j].path_found)) and dm.drones[j].goal_title == 'base'  and (not (fc.open_threads[j].is_alive())) :
+                        elif (not (dm.drones[j].path_found)) and dm.drones[j].goal_title == 'base'  :#and (not (fc.open_threads[j].is_alive())) :
                             dm.drones[j].path_found = path_planner.plan(dm.drones ,drone_idx=j, drone_num=ta.drone_num)
                             if dm.drones[j].path_found:
                                 fc.execute_trajectory(drone_idx=j, waypoints=path_planner.smooth_path_m[j])

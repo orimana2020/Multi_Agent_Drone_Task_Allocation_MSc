@@ -52,20 +52,22 @@ class Flight_manager(object):
         scf = self.swarm._cfs[self.uri_dict[drone_idx]]
         cf = scf.cf
         commander = scf.cf.high_level_commander 
+        velocity = [1.5, 0.8]
         if len(waypoints) > self.smooth_points_num:
             waypoints1 = waypoints[:self.smooth_points_num] # target to retreat
             waypoints2 = waypoints[self.smooth_points_num:] # retreat to target
             wp_list = [waypoints1, waypoints2]
-            velocity = 0.8
+            # velocity = 0.8
         else:
             wp_list = [waypoints]
-            velocity = 1.5
+            # velocity = 1.5
+       
         try:
             for idx, waypoints in enumerate(wp_list):
                 x, y, z = waypoints[0]
                 commander.go_to(x, y, z, yaw=0, duration_s=0.1)
                 trajectory_id = 1
-                traj = Generate_Trajectory(waypoints, velocity=velocity, force_zero_yaw=False)
+                traj = Generate_Trajectory(waypoints, velocity=velocity[idx], force_zero_yaw=False)
                 traj_coef = traj.poly_coef
                 duration = upload_trajectory(cf, trajectory_id ,traj_coef)
                 commander.start_trajectory(trajectory_id, 1.0, False)
@@ -77,7 +79,7 @@ class Flight_manager(object):
 
     def get_position(self, drone_idx):
         scf = self.swarm._cfs[self.uri_dict[drone_idx]]
-        self.swarm.__get_estimated_position(scf)
+        self.swarm._get_estimated_position(scf)
         return self.swarm._positions[self.uri_dict[drone_idx]]
      
         
@@ -97,10 +99,10 @@ class Flight_manager(object):
 
     def _land(self, scf):
         commander = scf.cf.high_level_commander
-        commander.land(0.0, 2)
-        time.sleep(2)
+        commander.land(0.0, 3)
+        time.sleep(3)
         commander.stop()
-        scf.close_links()
+        scf.close_link()
     
     def land(self, drone_idx, drones=None): 
         if drone_idx == 'all':
@@ -108,7 +110,7 @@ class Flight_manager(object):
                 scf = self.swarm._cfs[self.uri_dict[i]]
                 self._land(scf)
         else:
-            scf = self.swarm._cfs[self.uri_dict[i]]
+            scf = self.swarm._cfs[self.uri_dict[drone_idx]]
             self._land(scf)
             
         

@@ -107,7 +107,7 @@ span, limits, limits_idx = get_span(targetpos, base, resolution)
 downwash_distance = np.array([[min(targetpos[:,0]), max(targetpos[:,0])], [0.25,0.25], [1.2,1.2]]) # [m] , also distance to avoid flowdeck disturbance
 
 # --------------------- General
-sleep_time = 0.05
+sleep_time = 0.1
 colors = ['r', 'g', 'b', 'peru', 'yellow', 'lime', 'navy', 'purple', 'pink','grey']
 
 # ----------------- Plotting
@@ -130,7 +130,7 @@ LPS_anchor_pos = LPS_trible + trible_floor_offset
 # --------------- Analysis -------------
 # counter = np.load("counter_analysis.npy")
 # file_name = 'task_k_'+str(k_init)+'_threshold_'+str(threshold_factor)+'_3'
-file_name = 'cf_exp_sim'
+file_name = 'cf_exp_1'
 print(file_name)
 # np.save("counter_analysis", np.array(counter+1))
 # print(f'Task num: {counter}')

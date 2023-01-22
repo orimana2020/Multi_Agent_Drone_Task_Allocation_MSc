@@ -80,7 +80,7 @@ class Flight_manager(object):
     def get_position(self, drone_idx):
         scf = self.swarm._cfs[self.uri_dict[drone_idx]]
         self.swarm._get_estimated_position(scf)
-        return self.swarm._positions[self.uri_dict[drone_idx]]
+        # return self.swarm._positions[self.uri_dict[drone_idx]]
      
         
     def reached_goal(self, drone_idx, goal, title='target'):

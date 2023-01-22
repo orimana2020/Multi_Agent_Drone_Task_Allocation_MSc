@@ -187,7 +187,9 @@ def main():
                             an.add_visited(j, ta.optim.current_targets[j])
                             dm.arrived_target(j, ta, fc)
                             logger.log(f'drone {j} arrived to target')
-        
+        if (an.initial_targets_num - ta.optim.unvisited_num) / an.initial_targets_num < an.save_checkpoints[an.current_cp_idx]:
+            an.save(an.save_checkpoints[an.current_cp_idx])
+            an.current_cp_idx += 1
         fig.plot1(path_planner, dm, ta)
         fc.sleep()
     # -------------------------------- Return all drones to base ------------------------#
@@ -204,7 +206,7 @@ def main():
         fig.plot1(path_planner, dm, ta)
         fc.sleep()
     logger.log(f'Task Done Successfully, Total time:{round(time.time() - an.start_time, 2)} [sec], exclude take off and landing')
-    an.analyse()
+    an.save(1)
     fc.land('all', dm.drones)
     logger.log('landing all active drones')
     

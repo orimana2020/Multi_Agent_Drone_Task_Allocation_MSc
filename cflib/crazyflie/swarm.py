@@ -123,7 +123,7 @@ class Swarm:
                 x = entry[1]['stateEstimate.x']
                 y = entry[1]['stateEstimate.y']
                 z = entry[1]['stateEstimate.z']
-                self._positions[scf.cf.link_uri] = SwarmPosition(x, y, z)
+                self._positions[scf.cf.link_uri] = [x,y,z]#SwarmPosition(x, y, z)
                 break
 
     def get_estimated_positions(self):

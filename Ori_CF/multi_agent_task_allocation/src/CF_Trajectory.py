@@ -302,7 +302,7 @@ class Generate_Trajectory(object):
         size = np.linalg.norm(dic_vec, ord=2)
         normilized_dir_vec = dic_vec / size
         size_cp = size / 8
-        return current + normilized_dir_vec * size_cp
+        return current + normilized_dir_vec * size_cp #determine the position of the first control point
 
     def get_segments_time(self, wp, velocity=1):
         segment_time = []
@@ -359,7 +359,7 @@ class Generate_Trajectory(object):
         for s in segments:
             poly_coef.append(s.get_coef())
         return poly_coef
-        
+
 
 def upload_trajectory(cf, trajectory_id, trajectory):
     trajectory_mem = cf.mem.get_mems(MemoryElement.TYPE_TRAJ)[0]

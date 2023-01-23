@@ -169,7 +169,8 @@ class Allocation:
         drones_idx = [i for i in range(self.drone_num)]
         targets_idx = self.optim.current_targets
         targets_y_coords = [self.targetpos[i,1] for i in self.optim.current_targets]
-        drones_y_coords = [dm.drones[i].start_coords[1] for i in range(self.drone_num)]
+        # drones_y_coords = [dm.drones[i].start_coords[1] for i in range(self.drone_num)]
+        drones_y_coords = [dm.drones[i].base[1] for i in range(self.drone_num)]
         #sort targets
         sorted_targets_indices = np.argsort(targets_y_coords) 
         targets_idx[:] = [targets_idx[i] for i in sorted_targets_indices]

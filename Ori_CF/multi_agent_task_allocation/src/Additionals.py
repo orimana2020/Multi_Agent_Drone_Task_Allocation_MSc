@@ -153,7 +153,7 @@ class Analysis(object):
         self.allocation_history['path'] = []
         self.allocation_history['min_cost'] = []
         self.initial_targets_num = len(params.targetpos)
-        self.save_checkpoints = [0.5,0.8,1.1]
+        self.save_checkpoints = [0.5, 0.8, 1.1]
         self.current_cp_idx = 0
         self.current_checkpoint = self.save_checkpoints[self.current_cp_idx]
 

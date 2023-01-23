@@ -49,7 +49,7 @@ def activate_mellinger_controller(scf, use_mellinger):
 
 
 def run_shared_sequence(scf):
-    activate_mellinger_controller(scf, False)
+    # activate_high_level_commander(scf, False)
 
     box_size = 1
     flight_time = 2
@@ -62,14 +62,14 @@ def run_shared_sequence(scf):
     commander.go_to(box_size, 0, 0, 0, flight_time, relative=True)
     time.sleep(flight_time)
 
-    commander.go_to(0, box_size, 0, 0, flight_time, relative=True)
-    time.sleep(flight_time)
+    # commander.go_to(0, box_size, 0, 0, flight_time, relative=True)
+    # time.sleep(flight_time)
 
-    commander.go_to(-box_size, 0, 0, 0, flight_time, relative=True)
-    time.sleep(flight_time)
+    # commander.go_to(-box_size, 0, 0, 0, flight_time, relative=True)
+    # time.sleep(flight_time)
 
-    commander.go_to(0, -box_size, 0, 0, flight_time, relative=True)
-    time.sleep(flight_time)
+    # commander.go_to(0, -box_size, 0, 0, flight_time, relative=True)
+    # time.sleep(flight_time)
 
     commander.land(0.0, 2.0)
     time.sleep(2)
@@ -78,8 +78,11 @@ def run_shared_sequence(scf):
 
 
 uris = {
-    'radio://0/30/2M/E7E7E7E711',
-    'radio://0/30/2M/E7E7E7E712',
+   
+    'radio://0/80/2M/E7E7E7E7E1',
+    'radio://0/80/2M/E7E7E7E7E2',
+    'radio://0/80/2M/E7E7E7E7E3',
+    # 'radio://0/80/2M/E7E7E7E7E4',
     # Add more URIs if you want more copters in the swarm
 }
 

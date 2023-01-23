@@ -187,7 +187,8 @@ def main():
                             an.add_visited(j, ta.optim.current_targets[j])
                             dm.arrived_target(j, ta, fc)
                             logger.log(f'drone {j} arrived to target')
-        if (an.initial_targets_num - ta.optim.unvisited_num) / an.initial_targets_num < an.save_checkpoints[an.current_cp_idx]:
+        if ((an.initial_targets_num - ta.optim.unvisited_num) / an.initial_targets_num ) > an.save_checkpoints[an.current_cp_idx]:
+            print(((an.initial_targets_num - ta.optim.unvisited_num) / an.initial_targets_num ))
             an.save(an.save_checkpoints[an.current_cp_idx])
             an.current_cp_idx += 1
         fig.plot1(path_planner, dm, ta)

@@ -57,10 +57,8 @@ class Flight_manager(object):
             waypoints1 = waypoints[:self.smooth_points_num] # target to retreat
             waypoints2 = waypoints[self.smooth_points_num:] # retreat to target
             wp_list = [waypoints1, waypoints2]
-            # velocity = 0.8
         else:
             wp_list = [waypoints]
-            # velocity = 1.5
        
         try:
             for idx, waypoints in enumerate(wp_list):
@@ -80,7 +78,7 @@ class Flight_manager(object):
     def get_position(self, drone_idx):
         scf = self.swarm._cfs[self.uri_dict[drone_idx]]
         self.swarm._get_estimated_position(scf)
-        # return self.swarm._positions[self.uri_dict[drone_idx]]
+        return self.swarm._positions[self.uri_dict[drone_idx]]
      
         
     def reached_goal(self, drone_idx, goal, title='target'):

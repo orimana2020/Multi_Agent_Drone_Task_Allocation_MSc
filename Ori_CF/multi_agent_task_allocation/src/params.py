@@ -26,22 +26,24 @@ uri1 = 'radio://0/80/2M/E7E7E7E7E1'
 uri2 = 'radio://0/80/2M/E7E7E7E7E2'
 uri3 = 'radio://0/80/2M/E7E7E7E7E3'
 uri4 = 'radio://0/80/2M/E7E7E7E7E4'
-uri_list = [uri3, uri4] # index 0- most right drone 
+uri_list = [uri1,uri2,uri3,uri4] # index 0- most right drone 
 
 # --------------------- Drones --------------------#
 # -----------Drone CF
 if mode == 'cf':
     drone_num = len(uri_list)
-    magazine = [5,5,5,5,5,5,5,3,3,3,3][:drone_num]
+    magazine = [3,3,3,3,3,3,3,3][:drone_num]
     linear_velocity = 1
     drone_size_m = 0.2 # [m]
-    base = [(0.3,-0.7,1), (0.3,0,1), (0.3,0.7,1),(0.3,0.9,1)][:drone_num]# (x,y,z)   -> right to left order
+    # base = [(0.6,-0.7,1), (0.6,0,1), (0.6,0.7,1)][:drone_num]# (x,y,z)   -> right to left order
+    base = [(0.6,-1,1), (0.6,-0.3,1), (0.6,0.3,1), (0.6,1,1)][:drone_num]# (x,y,z)   -> right to left order
+
     segments_num = 8
 
 #-----------Drone Sim
 if mode == 'sim':
     drone_num = 3
-    magazine = [10,10,10,10,10,3,3,3,3,3,3][:drone_num]
+    magazine = [3,3,3,3,3,3,3,3,3,3][:drone_num]
     linear_velocity = 1
     base = [(0.1,-0.7,1), (0.1,0,1), (0.1,0.7,1),(0.3,0.9,1)][:drone_num] # (x,y,z)   -> right to left order
     uri_list = [[0]] * drone_num
@@ -50,7 +52,7 @@ if mode == 'sim':
 
 
 # ------------------ Allocation --------------------#
-k_init = 5
+k_init = 7
 threshold_factor = 0.8
 uri_state_mat_sim = '/src/rotors_simulator/multi_agent_task_allocation/src'
 uri_targetpos_cf = '/Ori_CF/multi_agent_task_allocation/src'
@@ -84,7 +86,8 @@ elif mode == 'cf':
 # -------------------- Targets
 uri_targetpos_sim = '/src/rotors_simulator/multi_agent_task_allocation/datasets/experiment1/experiment1_targets.npy'
 
-data_source = 'circle'
+data_source = 'cf_exp' 
+
 if data_source == 'circle':
     targets_num_gen = 5; t = np.linspace(0, 2*np.pi-2*np.pi/targets_num_gen, targets_num_gen); radius=0.6; depth=2.1;z_offset = radius + floor_safety_distance + 0.1;
     targetpos_raw = np.stack([depth*np.ones([targets_num_gen]) , radius * np.cos(t), radius * np.sin(t) + z_offset] , axis=-1)
@@ -104,7 +107,7 @@ mean_x_targets_position = np.sum(targetpos[:,0]) / targets_num
 span, limits, limits_idx = get_span(targetpos, base, resolution)
 
 # --------------------- Safety 2
-downwash_distance = np.array([[min(targetpos[:,0]), max(targetpos[:,0])], [0.25,0.25], [1.2,1.2]]) # [m] , also distance to avoid flowdeck disturbance
+downwash_distance = np.array([[min(targetpos[:,0]), max(targetpos[:,0])], [0.35,0.35], [1.5,1.5]]) # [m] , also distance to avoid flowdeck disturbance
 
 # --------------------- General
 sleep_time = 0.1
@@ -130,7 +133,7 @@ LPS_anchor_pos = LPS_trible + trible_floor_offset
 # --------------- Analysis -------------
 # counter = np.load("counter_analysis.npy")
 # file_name = 'task_k_'+str(k_init)+'_threshold_'+str(threshold_factor)+'_3'
-file_name = 'cf_exp_1'
+file_name = 'cf_exp_5'
 print(file_name)
 # np.save("counter_analysis", np.array(counter+1))
 # print(f'Task num: {counter}')
